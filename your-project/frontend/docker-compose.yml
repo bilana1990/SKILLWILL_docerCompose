@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: node:16
+    container_name: frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    command: "npm start"
+
+  backend:
+    image: node:16
+    container_name: backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+    command: "npm run dev"
+
+  # Common network configuration
+networks:
+  app-network:
+    driver: bridge
